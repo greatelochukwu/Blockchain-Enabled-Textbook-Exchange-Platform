@@ -7,3 +7,5 @@ O
 tests/book-registration.test.ts,f/5/f59a6749dc4a9606ff13c52ee348bfd284e3b0cb
 U
 %contracts/condition-verification.clar,3/3/33fb240a6753daa34c25843dbea4d1fb82df3e7e
+T
+$tests/condition-verification.test.ts,c/9/c99148e483334bfc1c8d979a74cc0a800180cf22
