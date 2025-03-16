@@ -1,30 +1,98 @@
+;; Exchange Matching Contract - Simplified
+;; Pairs students with needed textbooks
 
-;; title: exchange-matching
-;; version:
-;; summary:
-;; description:
+;; Define data variables
+(define-data-var last-exchange-id uint u0)
 
-;; traits
-;;
+;; Define data maps
+(define-map exchanges
+  { exchange-id: uint }
+  {
+    book-id: uint,
+    seller: principal,
+    buyer: principal,
+    price: uint,
+    status: (string-ascii 20), ;; "pending", "accepted", "completed", "cancelled"
+    created-at: uint
+  }
+)
 
-;; token definitions
-;;
+;; Create a new exchange request
+(define-public (create-exchange (book-id uint) (seller principal) (price uint))
+  (let ((exchange-id (+ (var-get last-exchange-id) u1)))
+    (begin
+      (var-set last-exchange-id exchange-id)
+      (map-set exchanges
+        { exchange-id: exchange-id }
+        {
+          book-id: book-id,
+          seller: seller,
+          buyer: tx-sender,
+          price: price,
+          status: "pending",
+          created-at: block-height
+        }
+      )
+      (ok exchange-id)
+    )
+  )
+)
 
-;; constants
-;;
+;; Accept an exchange request
+(define-public (accept-exchange (exchange-id uint))
+  (let ((exchange (unwrap! (map-get? exchanges { exchange-id: exchange-id }) (err u1))))
+    (if (is-eq tx-sender (get seller exchange))
+      (begin
+        (map-set exchanges
+          { exchange-id: exchange-id }
+          (merge exchange { status: "accepted" })
+        )
+        (ok true)
+      )
+      (err u2) ;; Not the seller
+    )
+  )
+)
 
-;; data vars
-;;
+;; Complete an exchange
+(define-public (complete-exchange (exchange-id uint))
+  (let ((exchange (unwrap! (map-get? exchanges { exchange-id: exchange-id }) (err u1))))
+    (if (or (is-eq tx-sender (get buyer exchange)) (is-eq tx-sender (get seller exchange)))
+      (begin
+        (map-set exchanges
+          { exchange-id: exchange-id }
+          (merge exchange { status: "completed" })
+        )
+        (ok true)
+      )
+      (err u2) ;; Not a participant
+    )
+  )
+)
 
-;; data maps
-;;
+;; Cancel an exchange
+(define-public (cancel-exchange (exchange-id uint))
+  (let ((exchange (unwrap! (map-get? exchanges { exchange-id: exchange-id }) (err u1))))
+    (if (or (is-eq tx-sender (get buyer exchange)) (is-eq tx-sender (get seller exchange)))
+      (begin
+        (map-set exchanges
+          { exchange-id: exchange-id }
+          (merge exchange { status: "cancelled" })
+        )
+        (ok true)
+      )
+      (err u2) ;; Not a participant
+    )
+  )
+)
 
-;; public functions
-;;
+;; Get exchange details
+(define-read-only (get-exchange (exchange-id uint))
+  (map-get? exchanges { exchange-id: exchange-id })
+)
 
-;; read only functions
-;;
-
-;; private functions
-;;
+;; Get last exchange ID
+(define-read-only (get-last-exchange-id)
+  (var-get last-exchange-id)
+)
 

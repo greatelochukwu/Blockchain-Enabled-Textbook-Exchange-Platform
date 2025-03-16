@@ -9,3 +9,7 @@ U
 %contracts/condition-verification.clar,3/3/33fb240a6753daa34c25843dbea4d1fb82df3e7e
 T
 $tests/condition-verification.test.ts,c/9/c99148e483334bfc1c8d979a74cc0a800180cf22
+P
+ contracts/exchange-matching.clar,e/a/eaa92ff156cb033bee68320185f46274485a3c97
+O
+tests/exchange-matching.test.ts,0/d/0dbcca7a62d98650aca960a1106d421df91e42ee
