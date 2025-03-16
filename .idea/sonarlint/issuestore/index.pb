@@ -1,3 +1,19 @@
 
 9
 	README.md,8/e/8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
+P
+ contracts/book-registration.clar,f/9/f90c5d8d51780e7a5cd7859efbd1a66e0a2a3bd3
+O
+tests/book-registration.test.ts,f/5/f59a6749dc4a9606ff13c52ee348bfd284e3b0cb
+U
+%contracts/condition-verification.clar,3/3/33fb240a6753daa34c25843dbea4d1fb82df3e7e
+T
+$tests/condition-verification.test.ts,c/9/c99148e483334bfc1c8d979a74cc0a800180cf22
+P
+ contracts/exchange-matching.clar,e/a/eaa92ff156cb033bee68320185f46274485a3c97
+O
+tests/exchange-matching.test.ts,0/d/0dbcca7a62d98650aca960a1106d421df91e42ee
+P
+ contracts/reputation-system.clar,8/f/8f85a02c68bbab1632e6c7d1d0725529f935513d
+O
+tests/reputation-system.test.ts,6/9/6907ff0c07493f1fa039cd71e6369818d97c7647
